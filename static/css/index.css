@@ -105,12 +105,30 @@ body {
 }
 
 /* Images */
+figure.image {
+  margin: 0;
+}
+
 figure.image img {
   max-width: 100%;
   height: auto;
   display: block;
   margin: 0 auto;
   border-radius: 4px;
+}
+
+/* Qualitative results - tighter spacing */
+.qualitative-item {
+  margin-bottom: 1.5rem;
+}
+
+.qualitative-item figure.image {
+  margin-bottom: 0.5rem;
+}
+
+.qualitative-item .content p {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
 }
 
 /* BibTeX */
