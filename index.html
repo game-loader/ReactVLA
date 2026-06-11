@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="ReactVLA: Fast and Lightweight Reactive Robot Manipulation via Improved Mean-Flow Action Generation">
+  <meta name="keywords" content="ReactVLA, VLA, Robot Manipulation, Mean Flow, Attention Residuals, Low-Latency">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ReactVLA: Fast and Lightweight Reactive Robot Manipulation via Improved Mean-Flow Action Generation</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+
+<!-- Title Section -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">ReactVLA: Fast and Lightweight Reactive Robot Manipulation via Improved Mean-Flow Action Generation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="#">Yanzhao Guo</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#">Wenkai Chen</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#">Jianwei Zhang</a><sup>2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Shanghai Jiao Tong University,</span>
+            <span class="author-block"><sup>2</sup>Universität Hamburg</span>
+          </div>
+
+          <!-- Links -->
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="static/pdfs/ReactVLA.pdf" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Teaser Figure -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <figure class="image">
+        <img src="static/images/teaser.svg" alt="ReactVLA comparison of VLA models across model size, inference latency, and task success rate.">
+      </figure>
+      <h2 class="subtitle has-text-centered">
+        <strong>ReactVLA</strong> achieves state-of-the-art success rate while maintaining a lightweight model footprint (0.39B params) and ultra-low inference latency (18.3 ms), enabling real-time reactive robotic control.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            While diffusion-based VLA policies excel at modeling expressive and multimodal action distributions, their reliance on iterative sampling introduces substantial inference latency, limiting their applicability to reactive closed-loop robot manipulation. To address this challenge, we propose <strong>ReactVLA</strong>, a low-latency and lightweight Vision-Language-Action framework for reactive robot manipulation. ReactVLA integrates two complementary components: (1) an <strong>improved Mean Flow (iMF)</strong> action generator that reduces expensive multi-step diffusion sampling to a one-to-two-step generation process, and (2) <strong>Attention Residuals (AttnRes)</strong>, which replace uniform residual accumulation with dynamic depth-wise feature routing to better preserve multimodal representations.
+          </p>
+          <p>
+            We evaluate ReactVLA on both large-scale simulation benchmarks (LIBERO and RoboIMI) and real-world robotic manipulation tasks. Experimental results show that ReactVLA consistently outperforms similarly sized VLA baselines, including SmolVLA and π<sub>0</sub>. On challenging precision manipulation tasks, ReactVLA achieves up to a <strong>1.65× improvement</strong> in task performance while providing more than a <strong>4× increase in inference speed</strong> compared with leading VLA models. These gains reduce policy latency to below 38.6 ms, enabling real-time reactive control for physical robot deployment.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Method Overview -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method Overview</h2>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <figure class="image">
+          <img src="static/images/method.svg" alt="Overview of the ReactVLA framework.">
+        </figure>
+        <div class="content has-text-justified">
+          <p>
+            <strong>Overview of the ReactVLA framework.</strong> Multimodal observations (visual inputs, language instructions, and proprioceptive states) are processed by an Attention Residual Transformer backbone with dynamic depth-wise feature routing. The proposed improved Mean-Flow (iMF) action head directly transports noisy actions toward the target action distribution through one-to-few-step generation, enabling ultra-low latency reactive robot control.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Experimental Results -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Experimental Results</h2>
+
+    <!-- LIBERO Table -->
+    <div class="content">
+      <h3 class="title is-4">LIBERO Benchmark</h3>
+      <div class="table-container">
+        <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th># Params</th>
+              <th>Spatial</th>
+              <th>Object</th>
+              <th>Goal</th>
+              <th>Long</th>
+              <th>Avg.</th>
+              <th>Latency (ms)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Diffusion Policy</td>
+              <td>0.46B</td>
+              <td>78.3</td>
+              <td>92.5</td>
+              <td>68.3</td>
+              <td>50.5</td>
+              <td>72.4</td>
+              <td>178.82</td>
+            </tr>
+            <tr>
+              <td>OpenVLA</td>
+              <td>6.74B</td>
+              <td>84.7</td>
+              <td>88.4</td>
+              <td>79.2</td>
+              <td>53.7</td>
+              <td>76.5</td>
+              <td>115.0</td>
+            </tr>
+            <tr>
+              <td>π<sub>0</sub> (Paligemma-3B)</td>
+              <td>5.97B</td>
+              <td>87.0</td>
+              <td>63.0</td>
+              <td>89.0</td>
+              <td>48.0</td>
+              <td>71.8</td>
+              <td>94.3</td>
+            </tr>
+            <tr>
+              <td>π<sub>0</sub></td>
+              <td>4.03B</td>
+              <td>90.0</td>
+              <td>86.0</td>
+              <td>95.0</td>
+              <td>73.0</td>
+              <td>86.0</td>
+              <td>93.4</td>
+            </tr>
+            <tr>
+              <td>SmolVLA</td>
+              <td>0.45B</td>
+              <td>90.0</td>
+              <td>96.0</td>
+              <td>92.0</td>
+              <td>71.0</td>
+              <td>87.3</td>
+              <td>74.1</td>
+            </tr>
+            <tr class="is-selected">
+              <td><strong>ReactVLA (Ours)</strong></td>
+              <td><strong>0.39B</strong></td>
+              <td><strong>93.0</strong></td>
+              <td><strong>95.0</strong></td>
+              <td><strong>92.0</strong></td>
+              <td><strong>72.0</strong></td>
+              <td><strong>88.0</strong></td>
+              <td><strong>18.3</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- RoboIMI Table -->
+    <div class="content">
+      <h3 class="title is-4">RoboIMI Simulation</h3>
+      <div class="table-container">
+        <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Peg-in-Socket Reward</th>
+              <th>Object Transfer Reward</th>
+              <th>Latency (ms)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ACT</td>
+              <td>289.60</td>
+              <td>115.64</td>
+              <td>4.5</td>
+            </tr>
+            <tr>
+              <td>Diffusion Policy</td>
+              <td>1019.39</td>
+              <td>319.20</td>
+              <td>398.0</td>
+            </tr>
+            <tr class="is-selected">
+              <td><strong>ReactVLA (Ours)</strong></td>
+              <td><strong>1513.56</strong></td>
+              <td><strong>526.22</strong></td>
+              <td><strong>15.1</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Real-World Table -->
+    <div class="content">
+      <h3 class="title is-4">Real-World Experiments (Diana 7 Robot)</h3>
+      <div class="table-container">
+        <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Orange P&P (Success)</th>
+              <th>Block Stack (Success)</th>
+              <th>Latency (ms)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SmolVLA</td>
+              <td>95% (19/20)</td>
+              <td>75% (15/20)</td>
+              <td>82.2</td>
+            </tr>
+            <tr class="is-selected">
+              <td><strong>ReactVLA (Ours)</strong></td>
+              <td><strong>95% (19/20)</strong></td>
+              <td><strong>90% (18/20)</strong></td>
+              <td><strong>38.6</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Qualitative Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Qualitative Results</h2>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <figure class="image">
+          <img src="static/images/qualitative_libero.svg" alt="Qualitative rollout comparison on LIBERO benchmark.">
+        </figure>
+        <div class="content has-text-centered">
+          <p><strong>LIBERO Benchmark.</strong> ReactVLA generates smoother trajectories and completes tasks faster than SmolVLA within the same physical time.</p>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <figure class="image">
+          <img src="static/images/qualitative_roboimi.svg" alt="Qualitative rollout comparison on RoboIMI dual-arm tasks.">
+        </figure>
+        <div class="content has-text-centered">
+          <p><strong>RoboIMI Dual-Arm Tasks.</strong> ReactVLA coordinates both robotic arms smoothly during peg-in-socket insertion and block handover compared to Diffusion Policy.</p>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <figure class="image">
+          <img src="static/images/real_world.svg" alt="Real-world robot experiments on Diana 7.">
+        </figure>
+        <div class="content has-text-centered">
+          <p><strong>Real-World Deployment.</strong> Orange Pick-and-Place and Block Stack tasks on the Diana 7 robotic arm with real-time reactive control.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BibTeX -->
+<section class="section hero is-light" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <pre><code>@article{guo2025reactvla,
+  title={ReactVLA: Fast and Lightweight Reactive Robot Manipulation via Improved Mean-Flow Action Generation},
+  author={Guo, Yanzhao and Chen, Wenkai and Zhang, Jianwei},
+  journal={arXiv preprint},
+  year={2025}
+}</code></pre>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            This website is built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>,
+            licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
